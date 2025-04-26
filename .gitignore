@@ -43,3 +43,5 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+
+ecommercegrupo1-firebase-adminsdk-fbsvc-a20a0a8783.json
