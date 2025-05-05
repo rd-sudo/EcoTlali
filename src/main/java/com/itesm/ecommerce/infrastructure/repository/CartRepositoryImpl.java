@@ -21,14 +21,16 @@ public class CartRepositoryImpl implements CartRepository, PanacheRepositoryBase
 
 
     @Override
+    @Transactional
     public void createCart(String userId) {
         CartEntity cart = new CartEntity();
-        //cart.setUser(userRepository.getUserEntityByFirebaseId(userId));
+        cart.setUser(userRepository.getUserEntityByFirebaseId(userId));
         cart.setStatus("active");
         persist(cart);
     }
 
     @Override
+    @Transactional
     public Cart createCartV2() {
         CartEntity cart = new CartEntity();
         //cart.setUser(userRepository.getUserEntityByFirebaseId(userId));
@@ -38,6 +40,15 @@ public class CartRepositoryImpl implements CartRepository, PanacheRepositoryBase
         cartModel.setId(cart.getId());
         return cartModel;
     }
+
+    @Override
+    @Transactional
+    public void createCartV3(Integer idUser){
+        CartEntity cart = new CartEntity();
+        cart.setUser(userRepository.findById(idUser));
+        cart.setStatus("active");
+        persist(cart);
+    };
 
     @Override
     public void changeStatus(int cartId, String status) {
@@ -74,8 +85,12 @@ public class CartRepositoryImpl implements CartRepository, PanacheRepositoryBase
         return cartModel;
     }
 
-    public CartEntity getCartById(int cartId) {
-        return findById(cartId);
+    @Override
+    public CartEntity getCartById(Integer cartId) {
+        CartEntity cartEntity = findById(cartId);
+        Cart cart= CartMapper.toDomain(cartEntity);
+        System.out.println(cart);
+        return cartEntity;
     }
 
     @Override
@@ -88,7 +103,32 @@ public class CartRepositoryImpl implements CartRepository, PanacheRepositoryBase
         return CartMapper.toDomain(cartEntity); // Devolver la entidad eliminada (si existía)
     }
 
+    @Override
+    public void payCart(Integer cartId){
+        CartEntity cart = findById(cartId);
+        if (cart == null) {
+            throw new IllegalArgumentException("Cart not found with ID: " + cartId);
+        }
+        // Realiza la consulta JPQL con Panache
+        Double total = find("SELECT SUM(p.price * chp.quantity) " +
+                "FROM CartHasProductsEntity chp " +
+                "JOIN chp.product p " +
+                "WHERE chp.cart.id = ?1", cartId)
+                .project(Double.class)
+                .firstResult();
+        // Manejo del caso si el carrito está vacío
+        if (total == null) {
+            total = 0.0;
+        }
+        // Imprime o utiliza el total calculado
+        System.out.println("El total del carrito con ID " + cartId + " es: " + total);
 
+        // Cambia el estado del carrito
+        cart.setStatus("paid");
+        persist(cart);
+
+
+    }
 
 
 

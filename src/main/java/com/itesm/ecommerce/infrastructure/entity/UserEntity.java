@@ -14,9 +14,6 @@ public class UserEntity {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="username", nullable = false)
-    private String username;
-
     @Column(name="firebase_id")
     private String firebaseId;
 }

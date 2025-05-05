@@ -16,11 +16,9 @@ public class CartEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    /* DESCOMENTA ESTO LEO
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user
-     */
+    private UserEntity user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartHasProductsEntity> cartHasProductsEntity;

@@ -1,4 +1,4 @@
-package com.itesm.ecommerce.infrastructure.dto;
+package com.itesm.ecommerce.infrastructure.dto.Product;
 
 import com.itesm.ecommerce.domain.model.Product;
 import jakarta.validation.constraints.NotBlank;
@@ -11,17 +11,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProductDTO
-{
-    @NotBlank
+public class ModifyProductDto {
+    private Integer product_id;
     private String name;
-    @NotBlank
     private String description;
-    @NotBlank
-    private float price;
+    private Float price;
+    private Integer stock;
+    private Integer category_id;
+    private String uuid;
 
-    public Product toProduct()
-    {
-        return new Product(name, description, price);
-    }
 }

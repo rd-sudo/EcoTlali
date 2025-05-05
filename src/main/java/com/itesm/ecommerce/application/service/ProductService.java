@@ -2,7 +2,12 @@ package com.itesm.ecommerce.application.service;
 
 import com.itesm.ecommerce.domain.model.Category;
 import com.itesm.ecommerce.domain.model.Product;
+import com.itesm.ecommerce.domain.repository.CategoryRepository;
 import com.itesm.ecommerce.domain.repository.ProductRepository;
+import com.itesm.ecommerce.infrastructure.dto.Product.ModifyProductDto;
+import com.itesm.ecommerce.infrastructure.entity.CategoryEntity;
+import com.itesm.ecommerce.infrastructure.entity.ProductEntity;
+import com.itesm.ecommerce.infrastructure.mapper.CategoryMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -14,11 +19,12 @@ public class ProductService {
 
     @Inject
     ProductRepository productRepository;
+    @Inject
+    CategoryRepository categoryRepository;
 
-    public Product createProduct(Product product) {
+    public void createProduct(Product product) {
         product.setUuid(UUID.randomUUID().toString());
-        product=productRepository.insertProduct(product);
-        return product;
+        productRepository.insertProduct(product);
     }
 
     public List<Product> getAllProducts() {
@@ -29,4 +35,19 @@ public class ProductService {
         productRepository.assignCategory(product_id,category_id);
 
     }
+
+    public void modifyProduct(ModifyProductDto modifyProductDto) {
+        //Busca el producto por id
+        Product newproduct = new Product();
+        newproduct.setName(modifyProductDto.getName());
+        newproduct.setDescription(modifyProductDto.getDescription());
+        newproduct.setPrice(modifyProductDto.getPrice());
+        newproduct.setStock(modifyProductDto.getStock());
+        //newproduct.setUuid(modifyProductDto.getUuid());
+
+        Category newCategory= categoryRepository.findCategoryById(modifyProductDto.getCategory_id());
+        newproduct.setCategory(newCategory);
+        productRepository.modifyProduct(newproduct, modifyProductDto.getProduct_id());
+    }
+
 }

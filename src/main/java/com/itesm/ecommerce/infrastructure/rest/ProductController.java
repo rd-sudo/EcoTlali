@@ -1,12 +1,11 @@
 package com.itesm.ecommerce.infrastructure.rest;
 
-import com.google.firebase.auth.FirebaseToken;
 import com.itesm.ecommerce.application.usecase.AssignCategoryProductUseCase;
-import com.itesm.ecommerce.application.usecase.CreateProductUseCase;
-import com.itesm.ecommerce.application.usecase.FinCategoryUseCase;
+import com.itesm.ecommerce.application.usecase.Product.CreateProductUseCase;
 import com.itesm.ecommerce.application.usecase.ListProductsUseCase;
-import com.itesm.ecommerce.domain.repository.CategoryRepository;
-import com.itesm.ecommerce.infrastructure.dto.CreateProductDTO;
+import com.itesm.ecommerce.application.usecase.Product.ModifyProductUseCase;
+import com.itesm.ecommerce.infrastructure.dto.Product.CreateProductDTO;
+import com.itesm.ecommerce.infrastructure.dto.Product.ModifyProductDto;
 import com.itesm.ecommerce.infrastructure.dto.category.AssignCategoryToProductDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -27,11 +26,14 @@ public class ProductController {
     ListProductsUseCase listProductsUseCase;
     @Inject
     AssignCategoryProductUseCase assignCategoryProductUseCase;
+    @Inject
+    ModifyProductUseCase modifyProductUseCase;
 
     @POST
     public Response createProduct(CreateProductDTO productRequest) {
         try{
-            return Response.ok(createProductUseCase.execute(productRequest.toProduct())).build();
+            createProductUseCase.execute(productRequest.toProduct());
+            return Response.ok().build();
         }catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
@@ -55,6 +57,17 @@ public class ProductController {
     public Response updateProduct(AssignCategoryToProductDTO dto) {
         try{
             assignCategoryProductUseCase.execute(dto);
+            return Response.ok().build();
+        }catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/modify_product")
+    public Response updateProduct(ModifyProductDto modifyProductDto) {
+        try{
+            modifyProductUseCase.execute(modifyProductDto);
             return Response.ok().build();
         }catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();

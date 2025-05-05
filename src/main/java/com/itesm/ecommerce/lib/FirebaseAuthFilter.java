@@ -12,13 +12,21 @@ import jakarta.ws.rs.ext.Provider;
 
 import javax.annotation.Priority;
 import java.io.IOException;
-/*
+
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class FirebaseAuthFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
+        String path = requestContext.getUriInfo().getPath();
+
+
+        if (path.equals("/register") || path.startsWith("/public")) {
+            System.out.println("Ruta Sin AUTORIZACION");
+            return; // No hacer nada, continuar con la solicitud
+        }
+
         String authHeader= requestContext.getHeaderString("Authorization");
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
@@ -44,4 +52,3 @@ public class FirebaseAuthFilter implements ContainerRequestFilter {
 
     }
 }
-*/

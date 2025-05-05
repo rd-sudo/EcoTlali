@@ -13,14 +13,16 @@ public class CartHasProductsEntity {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", nullable = false)
     private CartEntity cart;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    private int quantity;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
 
 }

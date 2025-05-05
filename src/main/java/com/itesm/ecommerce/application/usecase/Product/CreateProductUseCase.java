@@ -1,4 +1,4 @@
-package com.itesm.ecommerce.application.usecase;
+package com.itesm.ecommerce.application.usecase.Product;
 
 
 import com.itesm.ecommerce.application.service.ProductService;
@@ -12,8 +12,7 @@ public class CreateProductUseCase {
     @Inject
     ProductService productService;
 
-    public Product execute(Product product) {
-        product=productService.createProduct(product);
-        return product;
+    public void execute(Product product) {
+        productService.createProduct(product);
     }
 }

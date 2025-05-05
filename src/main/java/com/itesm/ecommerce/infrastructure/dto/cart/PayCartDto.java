@@ -1,6 +1,5 @@
 package com.itesm.ecommerce.infrastructure.dto.cart;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductDto {
-
+public class PayCartDto {
     private int idCart;
-    private int idProduct;
-    private int quantity;
-
 }

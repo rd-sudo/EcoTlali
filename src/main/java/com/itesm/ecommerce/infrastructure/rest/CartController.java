@@ -1,12 +1,8 @@
 package com.itesm.ecommerce.infrastructure.rest;
 
-import com.itesm.ecommerce.application.usecase.cart.AddProductToCartUseCase;
-import com.itesm.ecommerce.application.usecase.cart.DeleteCartUseCase;
-import com.itesm.ecommerce.application.usecase.cart.FindCartUseCase;
-import com.itesm.ecommerce.application.usecase.cart.RemoveProductFromCartUseCase;
-import com.itesm.ecommerce.infrastructure.dto.cart.AddProductDto;
-import com.itesm.ecommerce.infrastructure.dto.cart.DeleteCartDto;
-import com.itesm.ecommerce.infrastructure.dto.cart.RemoveProductDto;
+import com.itesm.ecommerce.application.usecase.User.GetFirebaseIdByIdUserCase;
+import com.itesm.ecommerce.application.usecase.cart.*;
+import com.itesm.ecommerce.infrastructure.dto.cart.*;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -28,7 +24,22 @@ public class CartController {
     DeleteCartUseCase DeleteCartUseCase;
     @Inject
     RemoveProductFromCartUseCase removeProductFromCartUseCase;
+    @Inject
+    ClearCartUseCase clearCartUseCase;
+    @Inject
+    PayCartUseCase payCartUseCase;
+    @Inject
+    CreateCartUseCase createCartUseCase;
+    @Inject
+    GetFirebaseIdByIdUserCase getFirebaseIdByIdUserCase;
 
+
+    @POST
+    @Path("/create")
+    public Response createCart(CreateCartDto createCartDto) {
+        createCartUseCase.execute(createCartDto);
+        return Response.ok().build();
+    }
 
     @POST
     @Path("/add")
@@ -42,8 +53,8 @@ public class CartController {
     }
     //Este deberia ser con el ide de un usuario, de momento esta hardcodeado
     @GET
-    public Response getCart() {
-        return Response.ok().entity(findCartUseCase.execute("H5AkbDHeaEhAgvfGLqyn6r9d0Ua2")).build();
+    public Response getCart(Integer idUser) {
+        return Response.ok().entity(findCartUseCase.execute(getFirebaseIdByIdUserCase.execute(idUser))).build();
     }
 
     @DELETE
@@ -64,10 +75,17 @@ public class CartController {
         return Response.ok().build();
     }
 
-
     @POST
     @Path("/empty-cart")
-    public Response emptyCart() {
+    public Response emptyCart(ClearCartDto clearCartDto) {
+        clearCartUseCase.execute(clearCartDto);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/cart-payment")
+    public Response payCart(PayCartDto payCartDto) {
+        payCartUseCase.execute(payCartDto);
         return Response.ok().build();
     }
 }

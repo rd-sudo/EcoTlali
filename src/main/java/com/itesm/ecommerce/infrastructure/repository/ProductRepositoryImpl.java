@@ -5,6 +5,7 @@ import com.itesm.ecommerce.domain.model.Product;
 import com.itesm.ecommerce.domain.repository.ProductRepository;
 import com.itesm.ecommerce.infrastructure.entity.CategoryEntity;
 import com.itesm.ecommerce.infrastructure.entity.ProductEntity;
+import com.itesm.ecommerce.infrastructure.mapper.CategoryMapper;
 import com.itesm.ecommerce.infrastructure.mapper.ProductMapper;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,13 +19,13 @@ import java.util.List;
 public class ProductRepositoryImpl implements ProductRepository, PanacheRepositoryBase<ProductEntity,Integer> {
     @Inject
     CategoryRepositoryImpl categoryRepository;
+
     @Override
     @Transactional
-    public Product insertProduct(Product product) {
+    public void insertProduct(Product product) {
         ProductEntity productEntity = ProductMapper.toEntity(product);
         persist(productEntity);
-        product=ProductMapper.toDomain(productEntity);
-        return product;
+        System.out.println("Product added successfully.");
     }
 
     @Override
@@ -46,8 +47,22 @@ public class ProductRepositoryImpl implements ProductRepository, PanacheReposito
         persist(productEntity);
     }
 
-    public ProductEntity findUserById(Integer productId) {
-        return findById( productId);
+    @Override
+    public ProductEntity findProductById(Integer productId) {
+        return findById(productId);
     }
 
+    @Override
+    @Transactional
+    public void modifyProduct(Product newproduct, Integer productId){
+        ProductEntity productEntity= findProductById(productId);
+        System.out.println(productEntity.getId());
+        productEntity.setName(newproduct.getName());
+        productEntity.setDescription(newproduct.getDescription());
+        productEntity.setPrice(newproduct.getPrice());
+        productEntity.setStock(newproduct.getStock());
+        System.out.println(productEntity.getUuid());
+        productEntity.setCategory(CategoryMapper.toEntity(newproduct.getCategory()));
+        persist(productEntity);
+    }
 }
