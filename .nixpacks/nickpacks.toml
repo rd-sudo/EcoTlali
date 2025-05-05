@@ -1,5 +1,0 @@
-[phases.setup]
-apt_pkgs = ["maven", "openjdk-17-jdk"]
-
-[phases.build]
-run = "chmod +x ./mvnw && ./mvnw clean package -DskipTests"
