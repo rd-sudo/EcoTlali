@@ -127,7 +127,6 @@ public class CartRepositoryImpl implements CartRepository, PanacheRepositoryBase
         cart.setStatus("paid");
         persist(cart);
 
-
     }
 
 
