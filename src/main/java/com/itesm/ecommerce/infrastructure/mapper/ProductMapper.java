@@ -5,27 +5,41 @@ import com.itesm.ecommerce.infrastructure.entity.ProductEntity;
 
 public class ProductMapper {
 
-    public static Product toDomain(ProductEntity productEntity) {
-        Product product = new Product();
-        product.setName(productEntity.getName());
-        product.setDescription(productEntity.getDescription());
-        product.setId(productEntity.getId());
-        product.setUuid(productEntity.getUuid());
-        product.setPrice(productEntity.getPrice());
-        product.setStock(productEntity.getStock());
-        product.setCategory(CategoryMapper.toDomain(productEntity.getCategory()));
-        return product;
+    public static Product toModel(ProductEntity entity) {
+        return new Product(
+                entity.getId(),
+                entity.getName(),
+                entity.getDescription(),
+                VendorMapper.toModel(entity.getVendor()),
+                entity.getPrice(),
+                entity.getStock(),
+                entity.getElectricityProduced(),
+                entity.getElectricityConsumption(),
+                entity.getApprovalStatus(),
+                entity.getApprovedBy(),
+                entity.getApprovalComments(),
+                entity.getCreatedAt(),
+                entity.getLastModifyDate(),
+                entity.getReviewedAt()
+        );
     }
 
-
-    public static ProductEntity toEntity(Product product) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setName(product.getName());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setId(product.getId());
-        productEntity.setUuid(product.getUuid());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setStock(product.getStock());
-        return productEntity;
+    public static ProductEntity toEntity(Product model) {
+        ProductEntity entity = new ProductEntity();
+        entity.setId(model.getId());
+        entity.setName(model.getName());
+        entity.setDescription(model.getDescription());
+        entity.setVendor(VendorMapper.toEntity( model.getVendor()));
+        entity.setPrice(model.getPrice());
+        entity.setStock(model.getStock());
+        entity.setElectricityProduced(model.getElectricityProduced());
+        entity.setElectricityConsumption(model.getElectricityConsumption());
+        entity.setApprovalStatus(model.getApprovalStatus());
+        entity.setApprovedBy(model.getApprovedBy());
+        entity.setApprovalComments(model.getApprovalComments());
+        entity.setCreatedAt(model.getCreatedAt());
+        entity.setLastModifyDate(model.getLastModifyDate());
+        entity.setReviewedAt(model.getReviewedAt());
+        return entity;
     }
 }

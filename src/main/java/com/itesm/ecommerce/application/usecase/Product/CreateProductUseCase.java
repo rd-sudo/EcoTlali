@@ -11,8 +11,4 @@ public class CreateProductUseCase {
 
     @Inject
     ProductService productService;
-
-    public void execute(Product product) {
-        productService.createProduct(product);
-    }
 }

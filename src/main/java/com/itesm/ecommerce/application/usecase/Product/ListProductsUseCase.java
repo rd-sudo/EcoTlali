@@ -1,4 +1,4 @@
-package com.itesm.ecommerce.application.usecase;
+package com.itesm.ecommerce.application.usecase.Product;
 
 import com.itesm.ecommerce.application.service.ProductService;
 import com.itesm.ecommerce.domain.model.Product;
@@ -9,10 +9,11 @@ import java.util.List;
 
 @ApplicationScoped
 public class ListProductsUseCase {
+
     @Inject
     ProductService productService;
 
     public List<Product> execute() {
-        return productService.getAllProducts();
+        return productService.listProducts();
     }
 }

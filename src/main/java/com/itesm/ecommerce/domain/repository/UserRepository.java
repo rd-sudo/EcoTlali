@@ -4,9 +4,4 @@ import com.itesm.ecommerce.domain.model.User;
 
 public interface UserRepository {
 
-    public User getUserById(int userId);
-    public User getUserByFirebaseId(String firebaseId);
-    public User insertUser(String firebaseId);
-    public String getFirebaseIdByUserId(int userId);
-
 }
