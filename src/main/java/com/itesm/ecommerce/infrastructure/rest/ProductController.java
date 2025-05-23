@@ -16,11 +16,6 @@ public class ProductController {
     @Inject
     ListProductsUseCase listProductsUseCase;
 
-    @GET
-    @Path("/test-auth")
-    public Response testAuth() {
-        return Response.ok("Authentication successful").build();
-    }
 
     @GET
     @Path("/list")
