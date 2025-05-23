@@ -10,45 +10,5 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase<UserEntity,Integer> {
-    @Override
-    public User getUserById(int userId) {
-        UserEntity user = findById(userId);
-        if (user == null) {
-            return null;
-        }
-        User userModel = new User();
-        userModel.setId(user.getId());
-        userModel.setFirebaseId(user.getFirebaseId());
-        return userModel;
-    }
 
-    @Override
-    public User getUserByFirebaseId(String firebaseId) {
-        UserEntity user = find("firebaseId", firebaseId).firstResult();
-        if (user == null) {
-            return null;
-        }
-        User userModel = new User();
-        userModel.setId(user.getId());
-        userModel.setFirebaseId(user.getFirebaseId());
-        return userModel;
-
-    }
-
-    @Override
-    @Transactional
-    public User insertUser(String firebaseId){
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirebaseId(firebaseId);
-        persist(userEntity);
-        return UserMapper.toDomain(userEntity);
-    }
-
-    public UserEntity getUserEntityByFirebaseId(String firebaseId) {
-        return find("firebaseId", firebaseId).firstResult();
-    }
-
-    public String getFirebaseIdByUserId(int userId){
-        return findById(userId).getFirebaseId();
-    }
 }
