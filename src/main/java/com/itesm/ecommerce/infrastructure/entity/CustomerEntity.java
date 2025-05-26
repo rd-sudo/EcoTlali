@@ -21,12 +21,9 @@ public class CustomerEntity {
     @Column(name = "customer_id", nullable = false)
     private int customerId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user", referencedColumnName = "user_id", nullable = false, unique = true)
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-
-    @Column(name = "address", nullable = false, length = 255)
-    private String address;
 
     @Column(name = "electricity_footprint", nullable = false)
     private BigDecimal electricityFootprint;
@@ -35,5 +32,5 @@ public class CustomerEntity {
     private BigDecimal waterFootprint;
 
     @Column(name = "gas_footprint", nullable = false)
-    private int gasFootprint;
+    private BigDecimal gasFootprint;
 }

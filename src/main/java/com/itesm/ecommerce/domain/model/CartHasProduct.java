@@ -14,6 +14,6 @@ import lombok.Setter;
 public class CartHasProduct {
     private Product product;
     @JsonIgnore
-    private Cart cart;
+    private Quote cart;
     private int quantity;
 }

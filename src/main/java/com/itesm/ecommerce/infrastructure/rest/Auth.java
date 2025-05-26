@@ -26,6 +26,7 @@ public class Auth {
         try{
             FirebaseAuthorizationResponse response = validateUserPasswordUseCase.execute(request.getEmail(), request.getPassword());
 
+
             return Response.ok(response).build();
         }catch (Exception e){
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();

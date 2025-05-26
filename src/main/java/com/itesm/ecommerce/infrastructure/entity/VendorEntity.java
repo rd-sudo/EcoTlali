@@ -21,8 +21,8 @@ public class VendorEntity extends PanacheEntityBase {
     @Column(name = "vendor_id")
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Column(name = "rfc", nullable = false, length = 13)
