@@ -20,7 +20,7 @@ import java.util.List;
 public class FirebaseAuthFilter implements ContainerRequestFilter {
 
     // Lista de rutas que no requieren autenticación
-    private static final List<String> EXCLUDED_PATHS = List.of("/register", "/public", "/auth/login", "/home");
+    private static final List<String> EXCLUDED_PATHS = List.of("/register", "/public", "/auth/login", "/home","/productDetails/{productId}", "/products/list");
 
     @Override
     public void filter(ContainerRequestContext requestContext) {

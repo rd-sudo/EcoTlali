@@ -31,16 +31,52 @@ public class QuoteItemRepositoryImpl implements QuoteItemRepository, PanacheRepo
         entityManager.merge(quoteItemEntity);
     };
 
-    public QuoteItem checkIfProductoInQuote(int quoteId, int productId) {
-        // Usar JPQL para consultar si el `QuoteItemEntity` existe
-        String query = "SELECT qi FROM QuoteItemEntity qi WHERE qi.quote.quote_id = :quoteId AND qi.product.id = :productId";
+    public QuoteItem checkIfProductoInUserQuote(int user_id, int quoteId, int productId) {
+        // Consulta JPQL para realizar los joins
+        System.out.println("Consulta JPQL" + user_id + " " + quoteId + " " + productId);
+        String query = """
+        SELECT qi
+        FROM QuoteItemEntity qi
+        JOIN qi.quote q
+        JOIN q.customer c
+        JOIN c.user u
+        WHERE q.quote_id = :quoteId AND qi.product.id = :productId AND u.id = :userId
+    """;
+
+        // Ejecutar la consulta
         List<QuoteItemEntity> results = entityManager.createQuery(query, QuoteItemEntity.class)
                 .setParameter("quoteId", quoteId)
                 .setParameter("productId", productId)
-                .getResultList(); // Obtiene todos los resultados como lista
+                .setParameter("userId", user_id)
+                .getResultList();
 
-        // Si la lista es vacía, devuelve null; si no, transforma el primer resultado
-        return results.isEmpty() ? null : QuoteItemMapper.toModel(results.get(0));
+
+        if (!results.isEmpty()) {
+            return QuoteItemMapper.toModel(results.get(0));
+        }
+
+        // Verifica si la quote está relacionada con el usuario
+        Long quoteCount = entityManager.createQuery(
+                        "SELECT COUNT(q) FROM QuoteEntity q JOIN q.customer c JOIN c.user u WHERE q.quote_id = :quoteId AND u.id = :userId", Long.class)
+                .setParameter("quoteId", quoteId)
+                .setParameter("userId", user_id)
+                .getSingleResult();
+
+        if (quoteCount == 0) {
+            throw new IllegalArgumentException("La cotización (quote) no existe o no está relacionada con el usuario");
+        }
+
+        Long productCount = entityManager.createQuery(
+                        "SELECT COUNT(p) FROM ProductEntity p WHERE p.id = :productId", Long.class)
+                .setParameter("productId", productId)
+                .getSingleResult();
+
+        if (productCount == 0) {
+            throw new IllegalArgumentException("El producto no existe");
+        }
+
+        // Si ambos existen pero no hay relación, retorna null
+        return null;
     }
 
 

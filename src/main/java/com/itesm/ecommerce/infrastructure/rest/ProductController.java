@@ -1,8 +1,9 @@
 package com.itesm.ecommerce.infrastructure.rest;
 
 import com.itesm.ecommerce.application.usecase.Auth.GetUserByBearerTokenUseCase;
-import com.itesm.ecommerce.application.usecase.Quote.AddProductoToQuoteUseCase;
-import com.itesm.ecommerce.application.usecase.Quote.CheckIfProductInQuoteUseCase;
+import com.itesm.ecommerce.application.usecase.Product.GetProductByIdUseCase;
+import com.itesm.ecommerce.application.usecase.Quote.AddProductoToUserQuoteUseCase;
+import com.itesm.ecommerce.application.usecase.Quote.CheckIfProductInUserQuoteUseCase;
 import com.itesm.ecommerce.application.usecase.Quote.CreateQuoteForUserUseCase;
 import com.itesm.ecommerce.application.usecase.Quote.UpdateProductInQuote;
 import com.itesm.ecommerce.domain.model.QuoteItem;
@@ -11,7 +12,6 @@ import com.itesm.ecommerce.infrastructure.dto.Quote.AddProductToQuoteDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import com.itesm.ecommerce.application.usecase.Product.ListProductsUseCase;
@@ -31,10 +31,10 @@ public class ProductController {
     CreateQuoteForUserUseCase CreateQuoteForUserUseCase;
 
     @Inject
-    CheckIfProductInQuoteUseCase checkIfProductInQuoteUseCase;
+    CheckIfProductInUserQuoteUseCase checkIfProductInUserQuoteUseCase;
 
     @Inject
-    AddProductoToQuoteUseCase addProductoToQuoteUseCase;
+    AddProductoToUserQuoteUseCase addProductoToUserQuoteUseCase;
 
     @Inject
     UpdateProductInQuote updateProductInQuote;
@@ -42,9 +42,13 @@ public class ProductController {
     @Inject
     GetUserByBearerTokenUseCase getUserByBearerTokenUseCase;
 
+    @Inject
+    GetProductByIdUseCase getProductByIdUseCase;
+
     @GET
     @Path("/list")
     public Response list() {
+        listProductsUseCase.execute();
         return Response.ok(listProductsUseCase.execute()).build();
     }
 
@@ -55,26 +59,27 @@ public class ProductController {
             User actualUser = getUserByBearerTokenUseCase.execute(securityContext);
 
             // Buscar un producto existente en el carrito del usuario por "quote_id" y "product_id"
-            QuoteItem existingItem = checkIfProductInQuoteUseCase.execute(
+            QuoteItem existingItem = checkIfProductInUserQuoteUseCase.execute(
+                    actualUser.getId(),
                     addproductToQuoteDTO.getQuote_id(),
                     addproductToQuoteDTO.getProduct_id()
 
             );
-            System.out.println(existingItem.getQuoteItemId() + " " + existingItem.getProduct().getId() + " " + existingItem.getQuantity());
+            System.out.println("User id: " +actualUser.getId());
 
-            if (existingItem != null) {
-                // Si el producto ya está en el carrito, actualizar la cantidad
+            if (existingItem != null) {// Si el producto ya está en el carrito, actualizar la cantidad
                 existingItem.setQuantity(existingItem.getQuantity() + addproductToQuoteDTO.getQuantity());
                 updateProductInQuote.execute(existingItem);
+
             } else {
                 // Si el producto no está en el carrito, agregarlo como nuevo
-                addProductoToQuoteUseCase.execute(
+                addProductoToUserQuoteUseCase.execute(
+                        actualUser.getId(),
                         addproductToQuoteDTO.getQuote_id(),
                         addproductToQuoteDTO.getProduct_id(),
                         addproductToQuoteDTO.getQuantity()
                 );
             }
-
             // Mensaje final
             return Response.ok("Product added to cart successfully!").build();
 
@@ -89,9 +94,10 @@ public class ProductController {
 
 
     //Implentacion Faltante
-    @POST
-    @Path("/productDetails")
-    public Response getProductDetails() {
-        return Response.ok("Product details send").build();
+    @GET
+    @Path("/productDetails/{productId}")
+    public Response getProductDetails(@PathParam("productId") int productId) {
+        getProductByIdUseCase.execute(productId);
+        return Response.ok("Product details send succesfully").build();
     }
 }

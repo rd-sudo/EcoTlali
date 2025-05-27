@@ -1,15 +1,18 @@
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\service\AuthenticationService.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\service\ProductService.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\service\QuoteService.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\service\UserService.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Auth\GetUserByBearerTokenUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Auth\ValidateUserPasswordUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Product\CreateProductUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Product\GetProductByIdUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Product\ListProductsUseCase.java
-D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\AddProductoToQuoteUseCase.java
-D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\CheckIfProductInQuoteUseCase.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\AddProductoToUserQuoteUseCase.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\CheckIfProductInUserQuoteUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\CreateQuoteForUserUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\ListQuotesByUserUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\Quote\UpdateProductInQuote.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\application\usecase\User\UpdateUuidUseCase.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\domain\model\CartHasProduct.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\domain\model\Category.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\domain\model\Customer.java
@@ -47,5 +50,6 @@ D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\Marketpl
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\repository\UserRepositoryImpl.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\rest\Auth.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\rest\ProductController.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\rest\QuoteController.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\lib\FirebaseAuthFilter.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\lib\FirebaseInitilizer.java

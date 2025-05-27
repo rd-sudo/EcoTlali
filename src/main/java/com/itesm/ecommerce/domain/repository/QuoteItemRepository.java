@@ -6,5 +6,5 @@ public interface QuoteItemRepository {
     void addQuoteItem(int quoteId, int productId, int quantity);
     void removeQuoteItem(int quoteId, int productId);
     void updateQuoteItem(QuoteItem quoteItem);
-    QuoteItem checkIfProductoInQuote(int quoteId, int productId);
+    QuoteItem checkIfProductoInUserQuote(int user_id, int quoteId, int productId);
 }
