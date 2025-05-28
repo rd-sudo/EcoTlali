@@ -18,5 +18,5 @@ public class User {
     private String username;
     private LocalDateTime createdAt;
     private String phone;
-
+    private String uuid;
 }
