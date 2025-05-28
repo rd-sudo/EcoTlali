@@ -32,6 +32,8 @@ D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\Marketpl
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\dto\Quote\AddProductToQuoteDTO.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\ApprovalStatus.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\CustomerEntity.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\InstallationOption.java
+D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\ProductCategory.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\ProductEntity.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\QuoteEntity.java
 D:\Bibliotecas\Documentos\Formación_academica\TEC\Semestre 6\P2\Andres\MarketplaceV2\ecommerce-main2\src\main\java\com\itesm\ecommerce\infrastructure\entity\QuoteItemEntity.java

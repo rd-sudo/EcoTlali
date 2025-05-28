@@ -17,10 +17,11 @@ public class VendorMapper {
         }
 
         return new Vendor(
-                entity.getId(),
+                entity.getVendorId(),
                 entity.getUser() != null ? UserMapper.toModel(entity.getUser()) : null,
                 entity.getRfc(),
                 entity.getCompanyName(),
+                entity.getTaxAddress(),
                 entity.getApprovedBy(),
                 entity.getApprovalStatus(),
                 entity.getApprovalComments(),
@@ -41,13 +42,14 @@ public class VendorMapper {
         }
 
         VendorEntity entity = new VendorEntity();
-        entity.setId(model.getVendor_id());
+        entity.setVendorId(model.getVendorId());
         entity.setUser(model.getUser() != null ? UserMapper.toEntity(model.getUser()) : null);
         entity.setRfc(model.getRfc());
-        entity.setCompanyName(model.getCompany_name());
-        entity.setApprovedBy(model.getApproved_by());
-        entity.setApprovalStatus(model.getApproval_status());
-        entity.setApprovalComments(model.getApproval_comments());
+        entity.setCompanyName(model.getCompanyName());
+        entity.setTaxAddress(model.getTaxAddress());
+        entity.setApprovedBy(model.getApprovedBy());
+        entity.setApprovalStatus(model.getApprovalStatus());
+        entity.setApprovalComments(model.getApprovalComments());
         entity.setReviewedAt(model.getReviewedAt());
         return entity;
     }

@@ -7,11 +7,11 @@ USE ecottlali;
 CREATE TABLE `users` (
                          `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          `email` VARCHAR(50) UNIQUE NOT NULL,
-                         `hashed_password` VARCHAR(128) NOT NULL,
                          `username` VARCHAR(255) UNIQUE NOT NULL,
                          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                          `phone` VARCHAR(255) NOT NULL,
-                         `uuid` VARCHAR(50)
+                         `uuid` VARCHAR(50),
+                         `role_type` ENUM('admin','vendor','customer')
 );
 
 CREATE TABLE `admins` (
@@ -37,9 +37,6 @@ CREATE TABLE `vendors` (
 CREATE TABLE `customers` (
                              `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                              `user_id` INT UNSIGNED NOT NULL UNIQUE,
-                             `electricity_footprint` DECIMAL(10, 2) NOT NULL,
-                             `water_footprint` DECIMAL(10, 2) NOT NULL,
-                             `gas_footprint` INT NOT NULL,
                              FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 );
 
@@ -48,10 +45,15 @@ CREATE TABLE `products` (
                             `vendor` INT UNSIGNED NOT NULL,
                             `name` VARCHAR(255) NOT NULL,
                             `description` VARCHAR(255) NOT NULL,
-                            `price` DECIMAL(10, 2) NOT NULL,
+                            `price` DOUBLE NOT NULL,
                             `stock` INT NOT NULL,
-                            `electricity_produced` DECIMAL(10, 2) NOT NULL,
-                            `electricity_consumption` DECIMAL(10, 2) NOT NULL,
+                            `brand_name` VARCHAR(100) NOT NULL,
+                            `installation_option` ENUM('Simple','Complex') NOT NULL,
+                            `product_category` ENUM(''),-- MENEARLE
+                            `smart_type` boolean NOT NULL,
+                            `electricity_produced` DOUBLE,
+                            `electricity_consumption` DOUBLE,
+                            `saving_cost` DOUBLE,
                             `approval_status` ENUM('Approved', 'Declined', 'Pending') NOT NULL DEFAULT 'Pending',
                             `created_at` DATETIME NOT NULL,
                             `last_modify_date` DATETIME NOT NULL,
@@ -104,12 +106,12 @@ CREATE TABLE `quote_items` (
 
 CREATE TABLE `bills` (
                          `bill_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         `customer` INT UNSIGNED NOT NULL,
-                         `bill_type` BIGINT NOT NULL,
-                         `image_url` LONGTEXT NOT NULL,
+                         `customer_id` INT UNSIGNED NOT NULL,
+                         `bill_type` ENUM('Water','Gas','Electricity') NOT NULL,
+                         `bill_cost` DOUBLE NOT NULL,
+                         `bill_consume` DOUBLE NOT NULL,
                          `uploaded_at` DATETIME NOT NULL,
-                         `bill_status` ENUM('Processed', 'Not Processed', 'Pending') NOT NULL DEFAULT 'Pending',
-                         FOREIGN KEY (`customer`) REFERENCES `customers`(`customer_id`) ON DELETE CASCADE
+                         FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `installations` (
@@ -118,6 +120,12 @@ CREATE TABLE `installations` (
                                  `scheduled_date` DATETIME NOT NULL,
                                  `notes` VARCHAR(255) NOT NULL,
                                  `installation_cost` DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE footprints(
+                           `footprint_id` INT UNSIGNED NOT NULL PRIMARY KEY,
+                           `customer_id` INT UNSIGNED NOT NULL,
+                           FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `images` (

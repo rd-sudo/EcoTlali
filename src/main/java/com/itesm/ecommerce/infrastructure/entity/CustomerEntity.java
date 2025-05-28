@@ -25,12 +25,6 @@ public class CustomerEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @Column(name = "electricity_footprint", nullable = false)
-    private BigDecimal electricityFootprint;
-
-    @Column(name = "water_footprint", nullable = false)
-    private BigDecimal waterFootprint;
-
-    @Column(name = "gas_footprint", nullable = false)
-    private BigDecimal gasFootprint;
+    @Column(name="phone", nullable = false)
+    private String phone;
 }

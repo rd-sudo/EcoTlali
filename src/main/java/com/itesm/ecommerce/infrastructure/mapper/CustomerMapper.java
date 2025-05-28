@@ -18,9 +18,7 @@ public class CustomerMapper {
         return new Customer(
                 entity.getCustomerId(),
                 UserMapper.toModel(entity.getUser()),
-                entity.getElectricityFootprint(),
-                entity.getWaterFootprint(),
-                entity.getGasFootprint()
+                entity.getPhone()
         );
 
     }
@@ -39,9 +37,7 @@ public class CustomerMapper {
         CustomerEntity entity = new CustomerEntity();
         entity.setCustomerId(model.getCustomer_id());
         entity.setUser(UserMapper.toEntity(model.getUser()));
-        entity.setElectricityFootprint(model.getElectricityFootprint());
-        entity.setWaterFootprint(model.getWaterFootprint());
-        entity.setGasFootprint(model.getGasFootprint());
+        entity.setPhone(model.getPhone());
         return entity;
     }
 }

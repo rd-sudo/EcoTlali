@@ -14,7 +14,5 @@ import java.math.BigDecimal;
 public class Customer {
     private int customer_id;
     private User user;
-    private BigDecimal electricityFootprint;
-    private BigDecimal waterFootprint;
-    private BigDecimal gasFootprint;
+    private String phone;
 }
