@@ -19,10 +19,10 @@ public class VendorEntity extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vendor_id")
-    private int id;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
     @Column(name = "rfc", nullable = false, length = 13)
@@ -31,17 +31,23 @@ public class VendorEntity extends PanacheEntityBase {
     @Column(name = "company_name", nullable = false, length = 100)
     private String companyName;
 
-    @Column(name = "approved_by", nullable = false)
+    @Column(name = "approved_by", nullable = true)
     private String approvedBy;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('Approved', 'Declined', 'Pending') DEFAULT 'Pending'")
     private ApprovalStatus approvalStatus = ApprovalStatus.Pending;
 
-    @Column(name = "approval_comments", nullable = false, length = 255)
+    @Column(name = "approval_comments", nullable = true, length = 255)
     private String approvalComments;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "reviewed_at", nullable = false)
+    @Column(name = "reviewed_at", nullable = true)
     private LocalDateTime reviewedAt;
+
+    @Column(name = "tax_address", nullable = false)
+    private String taxAddress;
+
+    @Column(name = "ine", nullable = false)
+    private String ine;
 }

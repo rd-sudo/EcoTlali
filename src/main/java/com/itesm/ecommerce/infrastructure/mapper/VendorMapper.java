@@ -1,54 +1,48 @@
 package com.itesm.ecommerce.infrastructure.mapper;
 
 import com.itesm.ecommerce.domain.model.Vendor;
+import com.itesm.ecommerce.infrastructure.entity.UserEntity;
 import com.itesm.ecommerce.infrastructure.entity.VendorEntity;
 
 public class VendorMapper {
 
-    /**
-     * Convierte un VendorEntity en un Vendor (de entidad a modelo).
-     *
-     * @param entity El VendorEntity a convertir.
-     * @return Un objeto Vendor.
-     */
-    public static Vendor toModel(VendorEntity entity) {
-        if (entity == null) {
-            return null;
+    public static Vendor toDomain(VendorEntity vendorEntity) {
+        Vendor vendor = new Vendor();
+        vendor.setCompanyName(vendorEntity.getCompanyName());
+        vendor.setRfc(vendorEntity.getRfc());
+        vendor.setTaxAddress(vendorEntity.getTaxAddress());
+        vendor.setIne(vendorEntity.getIne());
+        vendor.setReviewedAt(vendorEntity.getReviewedAt());
+
+        if(vendorEntity.getUser() != null) {
+            vendor.setUser(UserMapper.toDomain(vendorEntity.getUser()));
+        } else {
+            vendor.setUser(null);
         }
 
-        return new Vendor(
-                entity.getId(),
-                entity.getUser() != null ? UserMapper.toModel(entity.getUser()) : null,
-                entity.getRfc(),
-                entity.getCompanyName(),
-                entity.getApprovedBy(),
-                entity.getApprovalStatus(),
-                entity.getApprovalComments(),
-                entity.getReviewedAt()
-        );
-
+        return vendor;
     }
 
-    /**
-     * Convierte un Vendor en un VendorEntity (de modelo a entidad).
-     *
-     * @param model El Vendor a convertir.
-     * @return Un objeto VendorEntity.
-     */
-    public static VendorEntity toEntity(Vendor model) {
-        if (model == null) {
-            return null;
-        }
+    public static VendorEntity toEntity(Vendor vendor, UserEntity userEntity) {
+        VendorEntity vendorEntity = new VendorEntity();
+        vendorEntity.setCompanyName(vendor.getCompanyName());
+        vendorEntity.setRfc(vendor.getRfc());
+        vendorEntity.setTaxAddress(vendor.getTaxAddress());
+        vendorEntity.setIne(vendor.getIne());
+        vendorEntity.setReviewedAt(vendor.getReviewedAt());
+        vendorEntity.setUser(userEntity);
 
-        VendorEntity entity = new VendorEntity();
-        entity.setId(model.getVendor_id());
-        entity.setUser(model.getUser() != null ? UserMapper.toEntity(model.getUser()) : null);
-        entity.setRfc(model.getRfc());
-        entity.setCompanyName(model.getCompany_name());
-        entity.setApprovedBy(model.getApproved_by());
-        entity.setApprovalStatus(model.getApproval_status());
-        entity.setApprovalComments(model.getApproval_comments());
-        entity.setReviewedAt(model.getReviewedAt());
-        return entity;
+        return vendorEntity;
     }
+
+    public static VendorEntity toEntity(Vendor vendor) {
+        VendorEntity vendorEntity = new VendorEntity();
+        vendorEntity.setCompanyName(vendor.getCompanyName());
+        vendorEntity.setRfc(vendor.getRfc());
+        vendorEntity.setTaxAddress(vendor.getTaxAddress());
+        vendorEntity.setIne(vendor.getIne());
+        vendorEntity.setReviewedAt(vendor.getReviewedAt());
+        return vendorEntity;
+    }
+
 }

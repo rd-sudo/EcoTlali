@@ -19,21 +19,15 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
-    private int customerId;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user", referencedColumnName = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
-    @Column(name = "address", nullable = false, length = 255)
-    private String address;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "electricity_footprint", nullable = false)
-    private BigDecimal electricityFootprint;
-
-    @Column(name = "water_footprint", nullable = false)
-    private BigDecimal waterFootprint;
-
-    @Column(name = "gas_footprint", nullable = false)
-    private int gasFootprint;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 }

@@ -34,40 +34,38 @@ public class FirebaseAuthFilter implements ContainerRequestFilter {
     private static final String VALID_TOKEN_USER = "Valid token for user ID: ";
 
     @Override
-    public void filter(ContainerRequestContext requestContext) {
-        // Obtener la ruta solicitada en la petición
-        String path = requestContext.getUriInfo().getPath();
-        System.out.println("[INFO] " + PROCESSING_PATH + path);
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        String authHeader = requestContext.getHeaderString("Authorization");
 
-        // Verificar si la ruta está exenta de autenticación
+        String path = requestContext.getUriInfo().getPath();
+
+        // Si la ruta está exenta, permitir el acceso sin autenticacións
         if (isExcludedPath(path)) {
-            System.out.println("[INFO] " + PATH_EXEMPT + path);
-            return; // Continuar con la solicitud sin aplicar autenticación
+            System.out.println("[INFO] Path exempt from authorization: " + path);
+            return; // Continuar sin autenticación
         }
 
-        // Solo procesar el token en la ruta "/auth/login"
-        if (path.equals("/auth/login")) {
-            String token = extractToken(requestContext);
-            if (token == null) {
-                System.err.println("[ERROR] " + INVALID_AUTH_HEADER);
-                requestContext.abortWith(
-                        Response.status(Response.Status.UNAUTHORIZED)
-                                .entity(AUTH_HEADER_MISSING)
-                                .build()
-                );
-                return; // Terminar el proceso si el token es inválido
-            }
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Authorization header must be provided")
+                    .build());
+            return;
+        }
 
-            // Validar el token y agregar el UID del usuario al contexto
-            validateTokenAndSetUserContext(token, requestContext);
-        } else {
-            // Para otras rutas, abortar con 401
-            System.err.println("[ERROR] Unauthorized access to protected resource: " + path);
-            requestContext.abortWith(
-                    Response.status(Response.Status.UNAUTHORIZED)
-                            .entity("Unauthorized access to this resource.")
-                            .build()
-            );
+        String token = authHeader.substring("Bearer".length()).trim();
+
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+            requestContext.setProperty("userId", decodedToken.getUid());
+            System.out.println("✅ UID verificado: " + decodedToken.getUid());
+        } catch (FirebaseAuthException e) {
+            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Invalid token")
+                    .build());
+        } catch (Exception e) {
+            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Error verifying token")
+                    .build());
         }
     }
 
