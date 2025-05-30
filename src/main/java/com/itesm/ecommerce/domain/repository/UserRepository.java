@@ -1,5 +1,11 @@
 package com.itesm.ecommerce.domain.repository;
 
+import com.itesm.ecommerce.domain.model.User;
+
 public interface UserRepository {
-    void UpdateUuid(String username, String password, String newUuid);
+
+    public User createUser(User user);
+    public User getUserById(int userId);
+    public User getUserByFirebaseId(String uuid);
+    public User getUserByEmail(String email);
 }

@@ -18,13 +18,14 @@ public class VendorMapper {
 
         return new Vendor(
                 entity.getVendorId(),
-                entity.getUser() != null ? UserMapper.toModel(entity.getUser()) : null,
+                UserMapper.toDomain(entity.getUser()),
                 entity.getRfc(),
                 entity.getCompanyName(),
                 entity.getTaxAddress(),
                 entity.getApprovedBy(),
                 entity.getApprovalStatus(),
                 entity.getApprovalComments(),
+                entity.getIne(),
                 entity.getReviewedAt()
         );
 
@@ -51,6 +52,7 @@ public class VendorMapper {
         entity.setApprovalStatus(model.getApprovalStatus());
         entity.setApprovalComments(model.getApprovalComments());
         entity.setReviewedAt(model.getReviewedAt());
+        entity.setIne(model.getIne());
         return entity;
     }
 }

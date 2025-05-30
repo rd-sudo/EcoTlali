@@ -14,7 +14,7 @@ public class QuoteMapper {
 
         Quote quote = new Quote();
         quote.setQuote_id(entity.getQuote_id());
-        quote.setCustomer(CustomerMapper.toModel(entity.getCustomer()));
+        quote.setCustomer(CustomerMapper.toDomain(entity.getCustomer()));
         quote.setCreated_at(entity.getCreatedAt());
         quote.setTotal_amount(entity.getTotalAmount());
         quote.setInstallation(entity.getInstallation());

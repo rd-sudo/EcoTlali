@@ -30,6 +30,6 @@ public class AuthenticationRepositoryImp implements AuthenticationRepository, Pa
 
         // 3. Buscar en la base de datos al usuario con el UUID
         UserEntity user = UserEntity.find("uuid", bearerToken).firstResult();
-        return UserMapper.toModel(user);
+        return UserMapper.toDomain(user);
     }
 }

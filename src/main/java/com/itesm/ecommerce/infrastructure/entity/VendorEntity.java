@@ -47,4 +47,7 @@ public class VendorEntity extends PanacheEntityBase {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "reviewed_at", nullable = false)
     private LocalDateTime reviewedAt;
+
+    @Column(name = "ine", nullable = false, length = 20)
+    private String ine;
 }

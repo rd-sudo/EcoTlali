@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
     private String email;
-    private LocalDateTime createdAt;
     private String uuid;
-    private String role;
+    private Role role;
+    private LocalDateTime createdAt;
+
 }

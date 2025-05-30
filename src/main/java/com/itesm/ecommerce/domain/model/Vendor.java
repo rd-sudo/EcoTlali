@@ -21,5 +21,7 @@ public class Vendor {
     private String approvedBy;
     private ApprovalStatus approvalStatus;
     private String approvalComments;
+    private String ine;
     private LocalDateTime reviewedAt;
+
 }
