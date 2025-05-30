@@ -1,6 +1,5 @@
 package com.itesm.ecommerce.domain.model;
 
-import com.itesm.ecommerce.infrastructure.entity.ApprovalStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

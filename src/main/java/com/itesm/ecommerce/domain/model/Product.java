@@ -1,14 +1,10 @@
 package com.itesm.ecommerce.domain.model;
 
-import com.itesm.ecommerce.infrastructure.entity.ApprovalStatus;
-import com.itesm.ecommerce.infrastructure.entity.InstallationOption;
-import com.itesm.ecommerce.infrastructure.entity.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor

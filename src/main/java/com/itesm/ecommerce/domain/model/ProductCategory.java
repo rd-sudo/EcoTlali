@@ -1,4 +1,4 @@
-package com.itesm.ecommerce.infrastructure.entity;
+package com.itesm.ecommerce.domain.model;
 
 public enum ProductCategory {
     ENERGIA_RENOVABLE,

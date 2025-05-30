@@ -1,5 +1,6 @@
 package com.itesm.ecommerce.infrastructure.entity;
 
+import com.itesm.ecommerce.domain.model.ApprovalStatus;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,8 @@ public class VendorEntity extends PanacheEntityBase {
     private String approvedBy;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('Approved', 'Declined', 'Pending') DEFAULT 'Pending'")
-    private ApprovalStatus approvalStatus = ApprovalStatus.Pending;
+    @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('APPROVED', 'DECLINE', 'PENDING') DEFAULT 'PENDING'")
+    private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
 
     @Column(name = "approval_comments", nullable = false, length = 255)
     private String approvalComments;

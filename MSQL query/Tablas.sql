@@ -47,7 +47,7 @@ CREATE TABLE `products` (
                             `price` DOUBLE NOT NULL,
                             `stock` INT NOT NULL,
                             `company_name` VARCHAR(100) NOT NULL,
-                            `installation_option` ENUM('Simple','Complex') NOT NULL,
+                            `installation_option` ENUM('SIMPLE','COMPLEX') NOT NULL,
                             `product_category` ENUM('ENERGIA_RENOVABLE',
     'MOVILIDAD_SOSTENIBLE',
     'HOGAR_SUSTENTABLE',
@@ -59,14 +59,14 @@ CREATE TABLE `products` (
     'GAS'
     ),
                             `requires_sun` BOOLEAN NOT NULL DEFAULT FALSE, --
-                            `smart_type` boolean NOT NULL,
+                            `smart_device` boolean NOT NULL,
                             `electricity_produced` DOUBLE,
                             `electricity_consumption` DOUBLE,
                             `saving_cost` DOUBLE,
-                            `approval_status` ENUM('Approved', 'Declined', 'Pending') NOT NULL DEFAULT 'Pending',
+                            `approval_status` ENUM('APPROVED', 'DECLINED', 'PENDING') NOT NULL DEFAULT 'PENDING',
                             `created_at` DATETIME NOT NULL,
                             `last_modify_date` DATETIME NOT NULL,
-                            `approved_by` INT UNSIGNED NOT NULL,
+                            `approved_by` VARCHAR(255) NOT NULL,
                             `approval_comments` VARCHAR(255),
                             `reviewed_at` DATETIME,
                             FOREIGN KEY (`vendor`) REFERENCES `vendors`(`vendor_id`) ON DELETE CASCADE
@@ -116,7 +116,7 @@ CREATE TABLE `quote_items` (
 CREATE TABLE `bills` (
                          `bill_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          `customer_id` INT UNSIGNED NOT NULL,
-                         `bill_type` ENUM('Water','Gas','Electricity') NOT NULL,
+                         `bill_type` ENUM('WATER','GAS','ELECTRICITY') NOT NULL,
                          `bill_cost` DOUBLE NOT NULL,
                          `bill_consume` DOUBLE NOT NULL,
                          `uploaded_at` DATETIME NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE `bills` (
 
 CREATE TABLE `installations` (
                                  `installation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                 `status` ENUM('Scheduled', 'Installed', 'Pending') NOT NULL DEFAULT 'Pending',
+                                 `status` ENUM('SCHEDULED', 'INSTALLED', 'PENDING') NOT NULL DEFAULT 'Pending',
                                  `scheduled_date` DATETIME NOT NULL,
                                  `notes` VARCHAR(255) NOT NULL,
                                  `installation_cost` DECIMAL(10, 2) NOT NULL

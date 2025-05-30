@@ -1,5 +1,8 @@
 package com.itesm.ecommerce.infrastructure.entity;
 
+import com.itesm.ecommerce.domain.model.ApprovalStatus;
+import com.itesm.ecommerce.domain.model.InstallationOption;
+import com.itesm.ecommerce.domain.model.ProductCategory;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,7 +34,7 @@ public class ProductEntity extends PanacheEntityBase {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "price", nullable = false)
     private Double price;
 
     @Column(name = "stock", nullable = false)
@@ -58,12 +60,12 @@ public class ProductEntity extends PanacheEntityBase {
     @Column(name = "electricity_consumption")
     private Double electricityConsumption;
 
-    @Column (name = "saving_cost", nullable = false, precision = 10, scale = 2)
+    @Column (name = "saving_cost", nullable = false)
     private Double savingCost;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('Approved', 'Declined', 'Pending') DEFAULT 'Pending'")
-    private ApprovalStatus approvalStatus = ApprovalStatus.Pending;
+    @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('APPROVED', 'DECLINED', 'PENDING') DEFAULT 'PENDING'")
+    private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -74,9 +76,9 @@ public class ProductEntity extends PanacheEntityBase {
     @Column(name = "approved_by", nullable = false)
     private String approvedBy;
 
-    @Column(name = "approval_comments", nullable = false)
+    @Column(name = "approval_comments")
     private String approvalComments;
 
-    @Column(name = "reviewed_at", nullable = false)
+    @Column(name = "reviewed_at")
     private LocalDateTime reviewedAt;
 }
