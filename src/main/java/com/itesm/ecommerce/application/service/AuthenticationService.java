@@ -12,10 +12,6 @@ public class AuthenticationService {
     @Inject
     AuthenticationRepositoryImp authenticationRepositoryImp;
 
-    public FirebaseAuthorizationResponse validateUserPassword(String email, String password) throws Exception {
-        return authenticationRepositoryImp.login(email, password);
-    }
-
     public User getUserIdByBearerTokenUuid(String bearerToken) {
         return authenticationRepositoryImp.getUserByBearerToken(bearerToken);
     }
