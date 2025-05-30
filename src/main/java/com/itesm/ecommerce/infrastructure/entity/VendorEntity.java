@@ -19,7 +19,7 @@ public class VendorEntity extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vendor_id")
-    private int id;
+    private int vendorId;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -30,6 +30,9 @@ public class VendorEntity extends PanacheEntityBase {
 
     @Column(name = "company_name", nullable = false, length = 100)
     private String companyName;
+
+    @Column(name = "tax_address", nullable = false, length = 255)
+    private String taxAddress;
 
     @Column(name = "approved_by", nullable = false)
     private String approvedBy;
@@ -44,4 +47,7 @@ public class VendorEntity extends PanacheEntityBase {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "reviewed_at", nullable = false)
     private LocalDateTime reviewedAt;
+
+    @Column(name = "ine", nullable = false, length = 20)
+    private String ine;
 }

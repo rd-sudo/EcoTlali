@@ -31,7 +31,7 @@ public class QuoteEntity {
     private LocalDateTime createdAt;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @Column(name = "installation")
     private Boolean installation;

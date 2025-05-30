@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
     private String email;
-    private String hashedPassword;
-    private String username;
-    private LocalDateTime createdAt;
-    private String phone;
     private String uuid;
+    private Role role;
+    private LocalDateTime createdAt;
+
 }

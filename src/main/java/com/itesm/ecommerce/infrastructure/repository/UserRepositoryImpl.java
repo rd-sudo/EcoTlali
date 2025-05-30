@@ -6,18 +6,47 @@ import com.itesm.ecommerce.infrastructure.entity.UserEntity;
 import com.itesm.ecommerce.infrastructure.mapper.UserMapper;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.TransactionScoped;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase<UserEntity,Integer> {
+public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase<UserEntity, Integer> {
+
+    @Override
     @Transactional
-   public void UpdateUuid(String email, String password, String newUuid){
-         UserEntity userEntity = find("email = ?1 and hashedPassword = ?2", email, password).firstResult();
-         if (userEntity != null) {
-              userEntity.setUuid(newUuid);
-         }else{
-                throw new RuntimeException("User not found");
-         }
-   };
+    public User createUser(User user) {
+        UserEntity userEntity = UserMapper.toEntity(user);
+        persist(userEntity);
+        return UserMapper.toDomain(userEntity);
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        UserEntity userEntity = findById(userId);
+        return UserMapper.toDomain(userEntity);
+    }
+
+    @Override
+    public User getUserByFirebaseId(String uuid) {
+        UserEntity userEntity = find("uuid", uuid).firstResult();
+        if (userEntity == null) {
+            return null;
+        }
+        User userModel = new User();
+        userModel.setId(userEntity.getId());
+        userModel.setRole(userEntity.getRole());
+        userModel.setEmail(userEntity.getEmail());
+        return userModel;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        UserEntity userEntity = find("email", email).firstResult();
+        if (userEntity == null) {
+            return null;
+        }
+        User userModel = new User();
+        userModel.setId(userEntity.getId());
+        userModel.setEmail(userEntity.getEmail());
+        return userModel;
+    }
 }

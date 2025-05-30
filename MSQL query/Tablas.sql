@@ -3,40 +3,39 @@ DROP SCHEMA ecottlali;
 USE ecottlali;
 
 -- CREACIÓN DE TABLAS
-
+-- PENDING Updated
 CREATE TABLE `users` (
                          `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         `email` VARCHAR(50) UNIQUE NOT NULL,
-                         `username` VARCHAR(255) UNIQUE NOT NULL,
+                         `email` VARCHAR(255) UNIQUE NOT NULL,
                          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                         `phone` VARCHAR(255) NOT NULL,
-                         `uuid` VARCHAR(50),
-                         `role_type` ENUM('admin','vendor','customer')
+                         `uuid` VARCHAR(255),
+                         `role` ENUM('ADMIN','VENDOR','CUSTOMER')
 );
 
 CREATE TABLE `admins` (
                           `admin_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           `user_id` INT UNSIGNED NOT NULL UNIQUE,
+                          `name` VARCHAR(255) NOT NULL,
                           FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 );
-
+-- Updated
 CREATE TABLE `vendors` (
                            `vendor_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                            `user_id` INT UNSIGNED NOT NULL UNIQUE,
                            `rfc` VARCHAR(255) NOT NULL,
                            `company_name` VARCHAR(255) NOT NULL,
-                           `address` VARCHAR(255) NOT NULL,
-                           `approved_by` INT UNSIGNED,
-                           `approval_status` ENUM('Approved', 'Declined', 'Pending') NOT NULL DEFAULT 'Pending',
-                           `approval_comments` VARCHAR(255),
+                           `tax_address` VARCHAR(255) NOT NULL,
+                           `approval_status` ENUM('APPROVED', 'DECLINE', 'PENDING') NOT NULL DEFAULT 'PENDING',
                            `reviewed_at` DATETIME,
                            FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
     -- FOREIGN KEY (`approved_by`) REFERENCES `admins`(`admin_id`)
 );
-
+-- Updated
 CREATE TABLE `customers` (
                              `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                              `user_id` INT UNSIGNED NOT NULL UNIQUE,
+                             `phone` VARCHAR(255) NOT NULL,
+                             `name` VARCHAR(255) NOT NULL,
                              FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 );
 
@@ -47,9 +46,19 @@ CREATE TABLE `products` (
                             `description` VARCHAR(255) NOT NULL,
                             `price` DOUBLE NOT NULL,
                             `stock` INT NOT NULL,
-                            `brand_name` VARCHAR(100) NOT NULL,
+                            `company_name` VARCHAR(100) NOT NULL,
                             `installation_option` ENUM('Simple','Complex') NOT NULL,
-                            `product_category` ENUM(''),-- MENEARLE
+                            `product_category` ENUM('ENERGIA_RENOVABLE',
+    'MOVILIDAD_SOSTENIBLE',
+    'HOGAR_SUSTENTABLE',
+    'CONSUMO_RESPONSABLE',
+    'MODA_Y_CUIDADO_PERSONAL_ECOLOGICOS'
+    ),
+                            `product_energy_category` ENUM('WATER', --
+    'ELECTRICITY',
+    'GAS'
+    ),
+                            `requires_sun` BOOLEAN NOT NULL DEFAULT FALSE, --
                             `smart_type` boolean NOT NULL,
                             `electricity_produced` DOUBLE,
                             `electricity_consumption` DOUBLE,
@@ -89,7 +98,7 @@ CREATE TABLE `quotes` (
                           `quote_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           `customer_id` INT UNSIGNED NOT NULL,
                           `created_at` DATETIME NOT NULL,
-                          `total_amount` DECIMAL(10, 2) NOT NULL,
+                          `total_amount`DOUBLE NOT NULL,
                           `installation` BOOLEAN NOT NULL,
                           FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`) ON DELETE CASCADE
 );

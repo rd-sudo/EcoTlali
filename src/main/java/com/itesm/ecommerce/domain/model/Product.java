@@ -1,6 +1,8 @@
 package com.itesm.ecommerce.domain.model;
 
 import com.itesm.ecommerce.infrastructure.entity.ApprovalStatus;
+import com.itesm.ecommerce.infrastructure.entity.InstallationOption;
+import com.itesm.ecommerce.infrastructure.entity.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,14 +16,19 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Product {
-    private int id; // Corresponde a `product_id`
+    private int id;
+    private Vendor vendor;// Corresponde a `product_id`
     private String name; // Corresponde a `name`
     private String description; // Corresponde a `description`
-    private Vendor vendor;
-    private BigDecimal price; // Corresponde a `price` (DECIMAL -> BigDecimal)
-    private int stock; // Corresponde a `stock`
-    private BigDecimal electricityProduced; // Corresponde a `electricity_produced` (DECIMAL -> BigDecimal)
-    private BigDecimal electricityConsumption; // Corresponde a `electricity_consumption` (DECIMAL -> BigDecimal)
+    private Double price; // Corresponde a `price` (DECIMAL -> BigDecimal)
+    private int stock;
+    private String companyName;
+    private InstallationOption installationOption;// Corresponde a `stock`
+    private ProductCategory productCategory;
+    private Boolean smartDeivce;
+    private Double electricityProduced; // Corresponde a `electricity_produced` (DECIMAL -> BigDecimal)
+    private Double electricityConsumption;// Corresponde a `electricity_consumption` (DECIMAL -> BigDecimal)
+    private Double savingCost;
     private ApprovalStatus approvalStatus; // Corresponde a `approval_status` (ENUM -> Enum)
     private String approvedBy; // Corresponde a `approved_by`
     private String approvalComments; // Corresponde a `approval_comments`

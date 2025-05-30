@@ -2,46 +2,31 @@ package com.itesm.ecommerce.infrastructure.mapper;
 
 import com.itesm.ecommerce.domain.model.Customer;
 import com.itesm.ecommerce.infrastructure.entity.CustomerEntity;
+import com.itesm.ecommerce.infrastructure.entity.UserEntity;
 
 public class CustomerMapper {
-    /**
-     * Convierte un CustomerEntity en un Customer (de entidad a modelo).
-     *
-     * @param entity El CustomerEntity a convertir.
-     * @return Un objeto Customer.
-     */
-    public static Customer toModel(CustomerEntity entity) {
-        if (entity == null) {
-            return null;
+
+    public static Customer toDomain(CustomerEntity customerEntity) {
+        Customer customer = new Customer();
+        customer.setName(customerEntity.getName());
+        customer.setPhone(customerEntity.getPhone());
+
+        if (customerEntity.getUser() != null) {
+            customer.setUser(UserMapper.toDomain(customerEntity.getUser()));
+        } else {
+            customer.setUser(null);
         }
 
-        return new Customer(
-                entity.getCustomerId(),
-                UserMapper.toModel(entity.getUser()),
-                entity.getElectricityFootprint(),
-                entity.getWaterFootprint(),
-                entity.getGasFootprint()
-        );
-
+        return customer;
     }
 
-    /**
-     * Convierte un Customer en un CustomerEntity (de modelo a entidad).
-     *
-     * @param model El Customer a convertir.
-     * @return Un objeto CustomerEntity.
-     */
-    public static CustomerEntity toEntity(Customer model) {
-        if (model == null) {
-            return null;
-        }
+    public static CustomerEntity toEntity(Customer customer) {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setName(customer.getName());
+        customerEntity.setPhone(customer.getPhone());
+        customerEntity.setUser(customer.getUser() != null ? UserMapper.toEntity(customer.getUser()) : null);
 
-        CustomerEntity entity = new CustomerEntity();
-        entity.setCustomerId(model.getCustomer_id());
-        entity.setUser(UserMapper.toEntity(model.getUser()));
-        entity.setElectricityFootprint(model.getElectricityFootprint());
-        entity.setWaterFootprint(model.getWaterFootprint());
-        entity.setGasFootprint(model.getGasFootprint());
-        return entity;
+        return customerEntity;
     }
+
 }

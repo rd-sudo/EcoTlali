@@ -10,7 +10,7 @@ public class UpdateUuidUseCase {
     @Inject
     UserService userService;
     public void execute(String email,String hashedPassword, String userUuid) {
-        userService.UpdateUuid(email, hashedPassword, userUuid);
+        //userService.UpdateUuid(email, userUuid);
         // Aquí se puede implementar la lógica para actualizar el UUID del usuario
         // Por ejemplo, podrías llamar a un servicio o repositorio que maneje la actualización
         // del UUID en la base de datos.

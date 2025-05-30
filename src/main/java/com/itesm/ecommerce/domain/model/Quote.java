@@ -19,8 +19,7 @@ public class Quote {
     private int quote_id;
     private Customer customer;
     private LocalDateTime created_at;
-    private BigDecimal total_amount;
+    private Double total_amount;
     private Boolean installation;
     private List<QuoteItem> items;
-
 }
