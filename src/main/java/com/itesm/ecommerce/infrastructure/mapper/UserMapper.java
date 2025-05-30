@@ -22,7 +22,8 @@ public class UserMapper {
                 entity.getUsername(),
                 entity.getPhone(),
                 entity.getCreatedAt(),
-                entity.getPhone()
+                entity.getPhone(),
+                entity.getUuid()
         );
     }
 
@@ -43,6 +44,7 @@ public class UserMapper {
         entity.setUsername(model.getUsername());
         entity.setPhone(model.getPhone());
         entity.setCreatedAt(model.getCreatedAt());
+        entity.setUuid(model.getUuid());
         return entity;
     }
 }

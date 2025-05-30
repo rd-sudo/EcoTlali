@@ -18,6 +18,10 @@ public class ProductService {
         return productRepository.listAllProducts();
     }
 
+    public Product getProductById(int id) {
+        return productRepository.findProductById(id);
+    }
+
 
 
 }

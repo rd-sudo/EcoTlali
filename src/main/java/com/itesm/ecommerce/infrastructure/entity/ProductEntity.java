@@ -33,16 +33,33 @@ public class ProductEntity extends PanacheEntityBase {
     private String description;
 
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    private Double price;
 
     @Column(name = "stock", nullable = false)
     private int stock;
 
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
+
+    @Column(name = "installation_option", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private InstallationOption installationOption;
+
+    @Column(name = "product_category", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
+
+    @Column(name = "smart_device", nullable = false)
+    private Boolean smartDevice;
+
     @Column(name = "electricity_produced")
-    private BigDecimal electricityProduced;
+    private Double electricityProduced;
 
     @Column(name = "electricity_consumption")
-    private BigDecimal electricityConsumption;
+    private Double electricityConsumption;
+
+    @Column (name = "saving_cost", nullable = false, precision = 10, scale = 2)
+    private Double savingCost;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('Approved', 'Declined', 'Pending') DEFAULT 'Pending'")

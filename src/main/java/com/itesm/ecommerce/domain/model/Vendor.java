@@ -13,12 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vendor {
-    private int vendor_id;
+    private int vendorId;
     private User user;
     private String rfc;
-    private String company_name;
-    private String approved_by;
-    private ApprovalStatus approval_status;
-    private String approval_comments;
+    private String companyName;
+    private String taxAddress;
+    private String approvedBy;
+    private ApprovalStatus approvalStatus;
+    private String approvalComments;
     private LocalDateTime reviewedAt;
 }

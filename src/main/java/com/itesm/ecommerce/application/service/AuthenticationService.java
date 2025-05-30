@@ -1,5 +1,6 @@
 package com.itesm.ecommerce.application.service;
 
+import com.itesm.ecommerce.domain.model.User;
 import com.itesm.ecommerce.infrastructure.dto.Authorization.FirebaseAuthorizationResponse;
 import com.itesm.ecommerce.infrastructure.repository.AuthenticationRepositoryImp;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -9,10 +10,14 @@ import jakarta.inject.Inject;
 public class AuthenticationService {
 
     @Inject
-    AuthenticationRepositoryImp authenticationService;
+    AuthenticationRepositoryImp authenticationRepositoryImp;
 
     public FirebaseAuthorizationResponse validateUserPassword(String email, String password) throws Exception {
-        return authenticationService.login(email, password);
+        return authenticationRepositoryImp.login(email, password);
+    }
+
+    public User getUserIdByBearerTokenUuid(String bearerToken) {
+        return authenticationRepositoryImp.getUserByBearerToken(bearerToken);
     }
 }
 
