@@ -1,5 +1,6 @@
 package com.itesm.ecommerce.infrastructure.entity;
 
+import com.itesm.ecommerce.domain.model.Role;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,28 +25,13 @@ public class UserEntity extends PanacheEntityBase {
     @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
 
-    @Column(name = "hashed_password", nullable = false, length = 130)
-    private String hashedPassword;
+    @Column(name = "uuid", nullable = false)
+    private String uuid;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-    @Column(name = "phone", nullable = false)
-    private String phone;
-
-    @Column(name = "uuid", nullable = true, length = 50)
-    private String uuid;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private VendorEntity vendor;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private CustomerEntity customer;
-
-    /*@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private AdminEntity admin;*/
-
 }
