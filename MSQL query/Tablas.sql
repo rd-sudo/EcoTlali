@@ -26,6 +26,9 @@ CREATE TABLE `vendors` (
                            `company_name` VARCHAR(255) NOT NULL,
                            `tax_address` VARCHAR(255) NOT NULL,
                            `approval_status` ENUM('APPROVED', 'DECLINE', 'PENDING') NOT NULL DEFAULT 'PENDING',
+                           `approved_by` VARCHAR(255),
+                           `approval_comments` VARCHAR(255),
+                           `ine` VARCHAR(255) NOT NULL,
                            `reviewed_at` DATETIME,
                            FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
     -- FOREIGN KEY (`approved_by`) REFERENCES `admins`(`admin_id`)

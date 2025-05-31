@@ -35,20 +35,20 @@ public class VendorEntity extends PanacheEntityBase {
     @Column(name = "tax_address", nullable = false, length = 255)
     private String taxAddress;
 
-    @Column(name = "approved_by", nullable = false)
+    @Column(name = "approved_by")
     private String approvedBy;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false, columnDefinition = "ENUM('APPROVED', 'DECLINE', 'PENDING') DEFAULT 'PENDING'")
-    private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
+    private ApprovalStatus approvalStatus;
 
-    @Column(name = "approval_comments", nullable = false, length = 255)
+    @Column(name = "approval_comments", length = 255)
     private String approvalComments;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "reviewed_at", nullable = false)
+    @Column(name = "reviewed_at")
     private LocalDateTime reviewedAt;
 
-    @Column(name = "ine", nullable = false, length = 20)
+    @Column(name = "ine", nullable = false)
     private String ine;
 }

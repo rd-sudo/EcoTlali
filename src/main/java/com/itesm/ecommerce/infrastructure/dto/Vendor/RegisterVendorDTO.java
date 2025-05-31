@@ -1,5 +1,6 @@
 package com.itesm.ecommerce.infrastructure.dto.Vendor;
 
+import com.itesm.ecommerce.domain.model.ApprovalStatus;
 import com.itesm.ecommerce.domain.model.Role;
 import com.itesm.ecommerce.domain.model.User;
 import com.itesm.ecommerce.domain.model.Vendor;
@@ -41,6 +42,7 @@ public class RegisterVendorDTO {
         vendor.setRfc(rfc);
         vendor.setTaxAddress(taxAddress);
         vendor.setIne(ine);
+        vendor.setApprovalStatus(ApprovalStatus.PENDING);
         return vendor;
     }
 }
